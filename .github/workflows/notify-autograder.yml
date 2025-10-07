@@ -1,0 +1,21 @@
+name: Notify Autograder
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send notification to the autograder repository
+        run: |
+          gh api \
+            --method POST \
+            -H "Accept: application/vnd.github.v3+json" \
+            /repos/IS640PythonOrg/is640-autograder/dispatches \
+            -f event_type='run-autograding' \
+            -f client_payload[repository]="${{ github.repository }}"
+        env:
+          GITHUB_TOKEN: ${{ secrets.TEST_DATA_PAT }}
