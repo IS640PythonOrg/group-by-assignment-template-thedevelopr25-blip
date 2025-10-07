@@ -18,4 +18,5 @@ jobs:
             -f event_type='run-autograding' \
             -f client_payload[repository]="${{ github.repository }}"
         env:
-          GH_TOKEN: ${{ secrets.TEST_DATA_PAT }}
+          # GH_TOKEN: ${{ secrets.TEST_DATA_PAT }}
+          GH_TOKEN: ${{ github.token }}
